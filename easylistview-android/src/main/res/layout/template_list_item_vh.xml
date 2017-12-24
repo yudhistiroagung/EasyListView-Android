@@ -9,6 +9,7 @@
     android:layout_height="122dp">
 
     <RelativeLayout
+        android:id="@+id/container_item"
         android:clickable="true"
         android:background="@drawable/ripple_effect"
         android:layout_width="match_parent"

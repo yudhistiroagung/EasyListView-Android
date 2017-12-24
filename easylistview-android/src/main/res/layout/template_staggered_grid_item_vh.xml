@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/container_item"
         android:orientation="vertical"
         android:clickable="true"
         android:background="@drawable/ripple_effect"

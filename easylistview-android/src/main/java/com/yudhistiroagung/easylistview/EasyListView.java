@@ -12,7 +12,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import java.util.List;
 
 import static android.support.v7.widget.StaggeredGridLayoutManager.VERTICAL;
@@ -26,7 +25,6 @@ public class EasyListView extends FrameLayout {
     private ViewType mType;
     private RecyclerView mListView;
     private EasyListAdapter mAdapter;
-
     private RecyclerView.LayoutManager mLayoutManager;
 
     public EasyListView(@NonNull Context context) {
@@ -58,7 +56,6 @@ public class EasyListView extends FrameLayout {
 
     private void init(){
         View v = LayoutInflater.from(getContext()).inflate(R.layout.template_easy_list_view, this);
-
         mListView = v.findViewById(R.id.main_recycler_view);
         initRecyclerView();
     }
@@ -76,26 +73,54 @@ public class EasyListView extends FrameLayout {
             default:
                 mLayoutManager = new LinearLayoutManager(getContext());
         }
-        mAdapter = new EasyListAdapter(this.mType);
+
+        if (mAdapter == null)
+            mAdapter = new EasyListAdapter(this.mType);
+
         mLayoutManager.setAutoMeasureEnabled(true);
         mListView.setLayoutManager(mLayoutManager);
         mListView.setAdapter(mAdapter);
     }
 
+    /**
+     * replace list with new dataset
+     * @param items
+     */
     public void setListItems(List<? extends ListItem> items){
         mAdapter.setListItems(items);
     }
 
+    /**
+     * append list with new dataset
+     * @param items a list of object that implements {@link ListItem}
+     */
     public void addListItems(List<? extends ListItem> items){
         mAdapter.addListItems(items);
     }
 
+    /**
+     * add list with one new data
+     * @param item an object that implements {@link ListItem}
+     */
     public void addListItem(ListItem item){
         mAdapter.addListItem(item);
     }
 
+    /**
+     * add list with one new data, to specific position
+     * @param position : position of the object should be placed
+     * @param item an object that implements {@link ListItem}
+     */
     public void addListItem(int position, ListItem item){
         mAdapter.addListItem(position, item);
+    }
+
+    /**
+     * set click listener
+     * @param listener {@link OnItemClickListener}
+     */
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mAdapter.setOnItemClickListener(listener);
     }
 
 }
