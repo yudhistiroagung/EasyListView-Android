@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.yudhistiroagung.easylistview.MainActivity">
+
+    <com.yudhistiroagung.easylistview.EasyListView
+        android:id="@+id/easyListView"
+        android:layout_width="match_parent"
+        app:easyListViewType="STAGGERED_GRID_VIEW"
+        android:layout_height="match_parent"/>
+
+</android.support.constraint.ConstraintLayout>
