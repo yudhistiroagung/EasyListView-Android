@@ -2,21 +2,28 @@ package com.yudhistiroagung.easylistview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EasyListView mListView;
+    private EasyListView mEasyListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mListView = findViewById(R.id.easyListView);
-        mListView.setListItems(getMockProducts());
+        mEasyListView = findViewById(R.id.easyListView);
+        mEasyListView.setListItems(getMockProducts());
+        mEasyListView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClicked(int position, ListItem data) {
+                Toast.makeText(MainActivity.this, "Clicked "+position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private List<ListItem> getMockProducts(){
@@ -28,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
         res.add( new Product("ini tiga", "sdfasdfsadf sadf sadf sadf sdaf", img1) );
         res.add( new Product("ini empat", "sdfasdfsadf sadf sadf sadf sdaf", img2) );
         res.add( new Product("ini lima", "sdfasdfsadf sadf sadf sadf sdaf sadfjbasd fasd kjfhsad jfhasdjhfb", img1) );
-//        for (int i = 0; i < 10; i++) {
-//            res.add( new Product("Product "+i, "Desscription ajajaj ak ak ak ak a asdjhgas dfjkahsd fjkasdg fjkhasgdf jhaksdgf ask ak ak ak ak akak kdhfaksd fjahsdbf  "+i) );
-//        }
+        res.add( new Product("ini enam", "sdfasdfsadf sadf sadf", img1) );
+        res.add( new Product("ini tujuh", "sdfasdfsadf sadf sadf sadf sdaf sadfjbasd fasd kjfhsad jfhasdjhfb", img2) );
         return res;
     }
 }

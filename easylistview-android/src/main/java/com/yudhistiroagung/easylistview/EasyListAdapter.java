@@ -1,10 +1,9 @@
 package com.yudhistiroagung.easylistview;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,14 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
 
     private ViewType mType;
     private List<ListItem> mDataSet = new ArrayList<>();
+    private OnItemClickListener mListener;
 
+    public EasyListAdapter() {}
+
+    /**
+     *
+     * @param type list view type {@link ViewType}
+     */
     public EasyListAdapter(ViewType type) {
         this.mType = type;
     }
@@ -42,8 +48,16 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
     }
 
     @Override
-    public void onBindViewHolder(ListItemVH holder, int position) {
+    public void onBindViewHolder(ListItemVH holder, final int position) {
         holder.setListData(mDataSet.get(position));
+        holder.mContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null){
+                    mListener.onItemClicked(position, mDataSet.get(position));
+                }
+            }
+        });
     }
 
     @Override
@@ -51,23 +65,49 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
         return mDataSet.size();
     }
 
+    /**
+     * set on click listener
+     * @param listener {@link OnItemClickListener}
+     */
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mListener = listener;
+    }
+
+    /**
+     * replace list with new dataset
+     * @param items
+     */
     public void setListItems(List<? extends ListItem> items){
         mDataSet.clear();
         mDataSet.addAll(items);
         notifyDataSetChanged();
     }
 
+    /**
+     * append list with new dataset
+     * @param items
+     */
     public void addListItems(List<? extends ListItem> items){
         mDataSet.addAll(items);
         notifyDataSetChanged();
     }
 
+    /**
+     * add 1 new item to dataset on last position
+     * @param item
+     */
     public void addListItem(ListItem item){
         mDataSet.add(item);
         notifyDataSetChanged();
     }
 
+    /**
+     * add 1 new item to dataset on specific position
+     * @param position
+     * @param item
+     */
     public void addListItem(int position, ListItem item){
+        if (position < 0) position = 0;
         mDataSet.add(position, item);
         notifyDataSetChanged();
     }
