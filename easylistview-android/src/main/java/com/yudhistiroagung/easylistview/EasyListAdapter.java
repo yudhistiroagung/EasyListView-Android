@@ -20,7 +20,7 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
     public EasyListAdapter() {}
 
     /**
-     *
+     * constructor
      * @param type list view type {@link ViewType}
      */
     public EasyListAdapter(ViewType type) {
