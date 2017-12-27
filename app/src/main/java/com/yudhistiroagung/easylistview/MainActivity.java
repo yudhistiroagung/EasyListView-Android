@@ -1,7 +1,9 @@
 package com.yudhistiroagung.easylistview;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private EasyListView mEasyListView;
+    private boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClicked(int position, ListItem data) {
                 Toast.makeText(MainActivity.this, "Clicked "+position, Toast.LENGTH_SHORT).show();
+            }
+        });
+        mEasyListView.setOnScrollEndListener(new OnScrollEndListener() {
+            @Override
+            public void onScrollEnd() {
+                if (!isLoading) {
+                    Log.d("EasyListView", "onScrollEnd: ");
+                    isLoading = !isLoading;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            //fake network call
+                            isLoading = !isLoading;
+                            mEasyListView.addListItems(getMockProducts());
+                        }
+                    }, 3000);
+                }
             }
         });
     }
