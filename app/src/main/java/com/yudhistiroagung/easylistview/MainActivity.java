@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onScrollEnd() {
                 if (!isLoading) {
+                    Toast.makeText(MainActivity.this, "Loading ...", Toast.LENGTH_SHORT).show();
                     Log.d("EasyListView", "onScrollEnd: ");
                     isLoading = !isLoading;
                     new Handler().postDelayed(new Runnable() {

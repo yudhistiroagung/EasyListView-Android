@@ -77,7 +77,7 @@ public class EasyListView extends FrameLayout {
         }
 
         if (mAdapter == null)
-            mAdapter = new EasyListAdapter(this.mType);
+            mAdapter = new EasyListAdapter(this.mType, this.mListView);
 
         mLayoutManager.setAutoMeasureEnabled(true);
         mListView.setLayoutManager(mLayoutManager);
