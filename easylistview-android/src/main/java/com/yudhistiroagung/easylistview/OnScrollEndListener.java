@@ -6,7 +6,7 @@ package com.yudhistiroagung.easylistview;
 
 public interface OnScrollEndListener {
     /**
-     * will be fired when recycler view reachs the end of item
+     * will be fired when recycler view reaches the end of item
      */
     void onScrollEnd();
 }
