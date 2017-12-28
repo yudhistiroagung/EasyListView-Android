@@ -80,6 +80,7 @@ There are 3 type of list view : LIST_VIEW, GRID_VIEW, STAGGERED_GRID_VIEW
 public class MainActivity extends AppCompatActivity {
 
     private EasyListView mListView;
+    private boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,16 +90,35 @@ public class MainActivity extends AppCompatActivity {
         mListView = findViewById(R.id.list_view); //get listview object
         mListView.setListItems(getMockProducts()); //set data to list
 
-	//set click listener
+	   //set click listener
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClicked(int position, ListItem listItem) {
                 Toast.makeText(MainActivity.this, "Clicked "+position, Toast.LENGTH_SHORT).show();
 		
-		//example if you want to access your class method
-		if(listItem instanceof Product){
-		    String prodName = ((Product) listItem).getProductName();
-		}
+        		//example if you want to access your class method
+        		if(listItem instanceof Product){
+        		    String prodName = ((Product) listItem).getProductName();
+        		}
+            }
+        });
+
+        //
+        mEasyListView.setOnScrollEndListener(new OnScrollEndListener() {
+            @Override
+            public void onScrollEnd() {
+                if (!isLoading) {
+                    Toast.makeText(MainActivity.this, "Loading ...", Toast.LENGTH_SHORT).show();
+                    isLoading = !isLoading;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            //fake network request
+                            isLoading = !isLoading;
+                            mEasyListView.addListItems(getMockProducts());
+                        }
+                    }, 3000);
+                }
             }
         });
     }
