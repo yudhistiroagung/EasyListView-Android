@@ -51,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
         String img1 = "http://dreamstop.com/wp-content/uploads/2013/11/Fruit-Dreams.jpg";
         String img2 = "https://s-media-cache-ak0.pinimg.com/originals/1f/02/85/1f0285cad3365719a1c205f343324097.png";
         List<ListItem> res = new ArrayList<>();
-        res.add( new Product("ini satu", "sdfasdfsadf sadf sadf sadf sdaf", img1) );
-        res.add( new Product("ini dua", "sdfasdfsadf sadf sadf sadf sdaf sadfjbasd fasd kjfhsad jfhasdjhfb", img1) );
-        res.add( new Product("ini tiga", "sdfasdfsadf sadf sadf sadf sdaf", img1) );
-        res.add( new Product("ini empat", "sdfasdfsadf sadf sadf sadf sdaf", img2) );
-        res.add( new Product("ini lima", "sdfasdfsadf sadf sadf sadf sdaf sadfjbasd fasd kjfhsad jfhasdjhfb", img1) );
-        res.add( new Product("ini enam", "sdfasdfsadf sadf sadf", img1) );
-        res.add( new Product("ini tujuh", "sdfasdfsadf sadf sadf sadf sdaf sadfjbasd fasd kjfhsad jfhasdjhfb", img2) );
+        res.add( new Product("Title 1", "sdfasdfsadf sadf sadf sadf sdaf", img1) );
+        res.add( new Product("Title 2", "sdfasdfsadf sadf sadf sadf sdaf sadfjbasd fasd kjfhsad jfhasdjhfb", img1) );
+        res.add( new Product("Title 3", "sdfasdfsadf sadf sadf sadf sdaf", img1) );
+        res.add( new Product("Title 4", "sdfasdfsadf sadf sadf sadf sdaf", img2) );
+        res.add( new Product("Title 5", "sdfasdfsadf sadf sadf sadf sdaf sadfjbasd fasd kjfhsad jfhasdjhfb", img1) );
+        res.add( new Product("Title 6", "sdfasdfsadf sadf sadf", img1) );
+        res.add( new Product("Title 7", "sdfasdfsadf sadf sadf sadf sdaf sadfjbasd fasd kjfhsad jfhasdjhfb", img2) );
         return res;
     }
 }
