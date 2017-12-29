@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+
 import java.util.List;
 
 import static android.support.v7.widget.StaggeredGridLayoutManager.VERTICAL;
@@ -26,6 +27,7 @@ public class EasyListView extends FrameLayout {
     private RecyclerView mListView;
     private EasyListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private OnScrollEndListener mOnScrolledListener;
 
     public EasyListView(@NonNull Context context) {
         super(context);
@@ -75,12 +77,43 @@ public class EasyListView extends FrameLayout {
         }
 
         if (mAdapter == null)
-            mAdapter = new EasyListAdapter(this.mType);
+            mAdapter = new EasyListAdapter(this.mType, this.mListView);
 
         mLayoutManager.setAutoMeasureEnabled(true);
         mListView.setLayoutManager(mLayoutManager);
         mListView.setAdapter(mAdapter);
+        mListView.addOnScrollListener(mScrollListener);
     }
+
+    private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            if(dy > 0){
+                int visibleCount = mListView.getChildCount();
+                int totalItem = mLayoutManager.getItemCount();
+
+                int firstVisibleCount = 0;
+                if(mLayoutManager instanceof LinearLayoutManager){
+                    firstVisibleCount = ((LinearLayoutManager) mLayoutManager).findFirstVisibleItemPosition();
+                }else if (mLayoutManager instanceof GridLayoutManager){
+                    firstVisibleCount = ((GridLayoutManager) mLayoutManager).findFirstVisibleItemPosition();
+                }else {
+                    int[] firstVisibleItems = null;
+                    firstVisibleItems = ((StaggeredGridLayoutManager) mLayoutManager).findFirstVisibleItemPositions(firstVisibleItems);
+                    if (firstVisibleItems != null && firstVisibleItems.length > 0)
+                        firstVisibleCount = firstVisibleItems[0];
+                }
+
+                if( (visibleCount + firstVisibleCount) >= totalItem){
+                    if (mOnScrolledListener != null){
+                        mOnScrolledListener.onScrollEnd();
+                    }
+                }
+            }
+
+        }
+    };
 
     /**
      * replace list with new dataset
@@ -121,6 +154,14 @@ public class EasyListView extends FrameLayout {
      */
     public void setOnItemClickListener(OnItemClickListener listener){
         mAdapter.setOnItemClickListener(listener);
+    }
+
+    /**
+     * set scroll listener
+     * @param listener
+     */
+    public void setOnScrollEndListener(OnScrollEndListener listener){
+        this.mOnScrolledListener = listener;
     }
 
 }
