@@ -16,6 +16,7 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
     private ViewType mType;
     private List<ListItem> mDataSet = new ArrayList<>();
     private OnItemClickListener mListener;
+    private RecyclerView mRecyclerView;
 
     public EasyListAdapter() {}
 
@@ -25,6 +26,16 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
      */
     public EasyListAdapter(ViewType type) {
         this.mType = type;
+    }
+
+    /**
+     *
+     * @param type
+     * @param mRecyclerView
+     */
+    public EasyListAdapter(ViewType type, RecyclerView mRecyclerView) {
+        this.mType = type;
+        this.mRecyclerView = mRecyclerView;
     }
 
     @Override
@@ -90,6 +101,9 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
     public void addListItems(List<? extends ListItem> items){
         mDataSet.addAll(items);
         notifyDataSetChanged();
+        if (mRecyclerView != null){
+            mRecyclerView.smoothScrollToPosition(mDataSet.size() - items.size());
+        }
     }
 
     /**

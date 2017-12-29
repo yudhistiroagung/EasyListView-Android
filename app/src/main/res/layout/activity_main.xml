@@ -10,7 +10,7 @@
     <com.yudhistiroagung.easylistview.EasyListView
         android:id="@+id/easyListView"
         android:layout_width="match_parent"
-        app:easyListViewType="STAGGERED_GRID_VIEW"
+        app:easyListViewType="GRID_VIEW"
         android:layout_height="match_parent"/>
 
 </android.support.constraint.ConstraintLayout>
