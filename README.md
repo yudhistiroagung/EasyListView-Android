@@ -2,18 +2,17 @@
 Creating listview without making adapter
 
 Add it in your root build.gradle at the end of repositories:
-
-Step 1. Add the JitPack repository to your build file
+- Add the JitPack repository to your build file
 ```
 allprojects {
      repositories {
-	...
-	maven { url 'https://jitpack.io' }
+    ...
+    maven { url 'https://jitpack.io' }
      }
 }
 ```
 
-Step 2. Add the dependency
+- Add the dependency
 ```
 dependencies {
       compile 'com.github.yudhistiroagung:EasyListView-Android:v0.1.1'
@@ -37,7 +36,7 @@ public class Product implements ListItem {
     }
     
     public String getProductName(){
-    	return this.productName;
+        return this.productName;
     }
 
     @Override
@@ -57,7 +56,7 @@ public class Product implements ListItem {
 }
 ```
 - add EasyListView to your layout file
-There are 3 type of list view : LIST_VIEW, GRID_VIEW, STAGGERED_GRID_VIEW
+There are 3 types of list view : LIST_VIEW, GRID_VIEW, STAGGERED_GRID_VIEW
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -69,7 +68,7 @@ There are 3 type of list view : LIST_VIEW, GRID_VIEW, STAGGERED_GRID_VIEW
 
     <com.yudhistiroagung.easylistview.EasyListView
         android:id="@+id/list_view"
-	app:easyListViewType="LIST_VIEW" //choose yout type here
+    app:easyListViewType="LIST_VIEW" //choose yout type here
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -90,16 +89,16 @@ public class MainActivity extends AppCompatActivity {
         mListView = findViewById(R.id.list_view); //get listview object
         mListView.setListItems(getMockProducts()); //set data to list
 
-	   //set click listener
+       //set click listener
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClicked(int position, ListItem listItem) {
                 Toast.makeText(MainActivity.this, "Clicked "+position, Toast.LENGTH_SHORT).show();
-		
-        		//example if you want to access your class method
-        		if(listItem instanceof Product){
-        		    String prodName = ((Product) listItem).getProductName();
-        		}
+        
+                //example if you want to access your class method
+                if(listItem instanceof Product){
+                    String prodName = ((Product) listItem).getProductName();
+                }
             }
         });
 
@@ -136,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
 ```
 
 MIT License
-
 Copyright (c) 2017 Yudhistiro Agung N
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -156,6 +154,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
-
