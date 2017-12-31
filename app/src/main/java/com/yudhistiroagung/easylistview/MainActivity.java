@@ -4,6 +4,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -59,5 +62,27 @@ public class MainActivity extends AppCompatActivity {
         res.add( new Product("Title 6", "sdfasdfsadf sadf sadf", img1) );
         res.add( new Product("Title 7", "sdfasdfsadf sadf sadf sadf sdaf sadfjbasd fasd kjfhsad jfhasdjhfb", img2) );
         return res;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu , menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.order_ASC :
+                Toast.makeText(this, "ASC clicked", Toast.LENGTH_SHORT).show();
+                mEasyListView.setOrderItems(OrderType.ASC);
+                break;
+            case R.id.order_DESC :
+                Toast.makeText(this, "DESC clicked", Toast.LENGTH_SHORT).show();
+                mEasyListView.setOrderItems(OrderType.DESC);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

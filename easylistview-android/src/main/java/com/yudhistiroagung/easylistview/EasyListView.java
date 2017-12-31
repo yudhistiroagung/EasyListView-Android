@@ -125,7 +125,7 @@ public class EasyListView extends FrameLayout {
 
     /**
      * append list with new dataset
-     * @param items a list of object that implements {@link ListItem}
+     * @param items a list of object that implements, see {@link ListItem}
      */
     public void addListItems(List<? extends ListItem> items){
         mAdapter.addListItems(items);
@@ -133,7 +133,7 @@ public class EasyListView extends FrameLayout {
 
     /**
      * add list with one new data
-     * @param item an object that implements {@link ListItem}
+     * @param item an object that implements, see {@link ListItem}
      */
     public void addListItem(ListItem item){
         mAdapter.addListItem(item);
@@ -142,15 +142,23 @@ public class EasyListView extends FrameLayout {
     /**
      * add list with one new data, to specific position
      * @param position : position of the object should be placed
-     * @param item an object that implements {@link ListItem}
+     * @param item an object that implements, see {@link ListItem}
      */
     public void addListItem(int position, ListItem item){
         mAdapter.addListItem(position, item);
     }
 
     /**
+     * set order item ascending or descending
+     * @param orderType see {@link OrderType}
+     */
+    public void setOrderItems(OrderType orderType){
+        mAdapter.setOrder(orderType);
+    }
+
+    /**
      * set click listener
-     * @param listener {@link OnItemClickListener}
+     * @param listener see {@link OnItemClickListener}
      */
     public void setOnItemClickListener(OnItemClickListener listener){
         mAdapter.setOnItemClickListener(listener);
