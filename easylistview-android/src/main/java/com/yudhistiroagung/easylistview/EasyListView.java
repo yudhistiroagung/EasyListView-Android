@@ -74,7 +74,8 @@ public class EasyListView extends FrameLayout {
 
     private RecyclerView.ItemDecoration mDecoration;
     private void setLayoutManager(ViewType viewType){
-        mListView.removeItemDecoration(mDecoration);
+        if (mDecoration != null)
+            mListView.removeItemDecoration(mDecoration);
         switch (viewType){
             case GRID:
                 mDecoration = new SpacesItemDecoration(16, 2);
