@@ -80,6 +80,15 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
     }
 
     /**
+     * set view type
+     * @param type see, {@link ViewType}
+     */
+    public void setViewType(ViewType type){
+        this.mType = type;
+        notifyDataSetChanged();
+    }
+
+    /**
      * set on click listener
      * @param listener {@link OnItemClickListener}
      */

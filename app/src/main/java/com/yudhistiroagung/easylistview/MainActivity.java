@@ -82,6 +82,15 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "DESC clicked", Toast.LENGTH_SHORT).show();
                 mEasyListView.setOrderItems(OrderType.DESC);
                 break;
+            case R.id.list_type :
+                mEasyListView.setListType(ViewType.LIST);
+                break;
+            case R.id.grid_type :
+                mEasyListView.setListType(ViewType.GRID);
+                break;
+            case R.id.stagerred_type :
+                mEasyListView.setListType(ViewType.STAGGERED_GRID);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
