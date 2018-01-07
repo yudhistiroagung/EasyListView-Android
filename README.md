@@ -15,7 +15,7 @@ allprojects {
 - Add the dependency
 ```
 dependencies {
-      compile 'com.github.yudhistiroagung:EasyListView-Android:v0.1.2'
+      compile 'com.github.yudhistiroagung:EasyListView-Android:v0.1.3'
 }
 ```
 
