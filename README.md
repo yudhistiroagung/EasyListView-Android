@@ -68,7 +68,7 @@ There are 3 types of list view : LIST_VIEW, GRID_VIEW, STAGGERED_GRID_VIEW
 
     <com.yudhistiroagung.easylistview.EasyListView
         android:id="@+id/list_view"
-    app:easyListViewType="LIST_VIEW" //choose yout type here
+        app:easyListViewType="LIST_VIEW" //choose yout type here
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         mListView = findViewById(R.id.list_view); //get listview object
         mListView.setListItems(getMockProducts()); //set data to list
-       //set click listener
+        //set click listener
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClicked(int position, ListItem listItem) {
@@ -181,7 +181,7 @@ addListItem()
 ```
 setOrderItems();
 ```
-- Change the List to different type programmatilcally
+- Change the List to different type
 ```
 setListType();
 ```
