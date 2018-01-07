@@ -142,7 +142,7 @@ public class EasyListView extends FrameLayout {
     }
 
     /**
-     * append list with new dataset
+     * appends list with new dataset
      * @param items a list of object that implements, see {@link ListItem}
      */
     public void addListItems(List<? extends ListItem> items){
@@ -150,7 +150,7 @@ public class EasyListView extends FrameLayout {
     }
 
     /**
-     * add list with one new data
+     * adds one item to existing dataset
      * @param item an object that implements, see {@link ListItem}
      */
     public void addListItem(ListItem item){
