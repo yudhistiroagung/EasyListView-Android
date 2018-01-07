@@ -23,6 +23,10 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         outRect.bottom = space;
         outRect.top = space;
 
+        if (position > 2){
+            outRect.top = space / 2;
+        }
+
         if (position % 2 == 1){
             outRect.right = space / 2;
         }else if (position % 2 == 0){

@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -17,6 +19,7 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
     private List<ListItem> mDataSet = new ArrayList<>();
     private OnItemClickListener mListener;
     private RecyclerView mRecyclerView;
+    private OrderType mOrderType = OrderType.NONE;
 
     public EasyListAdapter() {}
 
@@ -77,6 +80,15 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
     }
 
     /**
+     * set view type
+     * @param type see, {@link ViewType}
+     */
+    public void setViewType(ViewType type){
+        this.mType = type;
+        notifyDataSetChanged();
+    }
+
+    /**
      * set on click listener
      * @param listener {@link OnItemClickListener}
      */
@@ -91,6 +103,7 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
     public void setListItems(List<? extends ListItem> items){
         mDataSet.clear();
         mDataSet.addAll(items);
+        orderDataSet(true);
         notifyDataSetChanged();
     }
 
@@ -100,6 +113,7 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
      */
     public void addListItems(List<? extends ListItem> items){
         mDataSet.addAll(items);
+        orderDataSet(true);
         notifyDataSetChanged();
         if (mRecyclerView != null){
             mRecyclerView.smoothScrollToPosition(mDataSet.size() - items.size());
@@ -124,6 +138,41 @@ public class EasyListAdapter extends RecyclerView.Adapter<ListItemVH>{
         if (position < 0) position = 0;
         mDataSet.add(position, item);
         notifyDataSetChanged();
+    }
+
+    /**
+     * order the items ascending or descending order
+     * @param orderType
+     */
+    public void setOrder(OrderType orderType){
+        this.mOrderType = orderType;
+        if(mDataSet.size() > 0){
+            //immediately order the list
+            orderDataSet(false);
+        }
+    }
+
+    /**
+     * order current dataset with selected order type
+     * @param isDataChanged is data has been changed before reorder the items
+     */
+    private void orderDataSet(boolean isDataChanged){
+        if (mOrderType == OrderType.NONE)
+            return;
+        Collections.sort(this.mDataSet, new Comparator<ListItem>() {
+            @Override
+            public int compare(ListItem listItem, ListItem t1) {
+                switch (mOrderType){
+                    case ASC:
+                        return listItem.getTitle().compareTo(t1.getTitle());
+                    case DESC:
+                        return t1.getTitle().compareTo(listItem.getTitle());
+                }
+                return 0;
+            }
+        });
+        if (!isDataChanged)
+            notifyDataSetChanged();
     }
 
 }

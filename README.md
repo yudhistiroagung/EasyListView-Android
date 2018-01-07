@@ -74,7 +74,7 @@ There are 3 types of list view : LIST_VIEW, GRID_VIEW, STAGGERED_GRID_VIEW
 
 </android.support.constraint.ConstraintLayout>
 ```
-- Add data and click listener on your activity 
+### Example code
 ```
 public class MainActivity extends AppCompatActivity {
 
@@ -88,21 +88,16 @@ public class MainActivity extends AppCompatActivity {
 
         mListView = findViewById(R.id.list_view); //get listview object
         mListView.setListItems(getMockProducts()); //set data to list
-
        //set click listener
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClicked(int position, ListItem listItem) {
                 Toast.makeText(MainActivity.this, "Clicked "+position, Toast.LENGTH_SHORT).show();
         
-                //example if you want to access your class method
-                if(listItem instanceof Product){
-                    String prodName = ((Product) listItem).getProductName();
-                }
             }
         });
 
-        //
+        //set scroll listenenr to detect end scroll
         mEasyListView.setOnScrollEndListener(new OnScrollEndListener() {
             @Override
             public void onScrollEnd() {
@@ -121,6 +116,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu , menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.order_ASC :
+                // Order the items with ASC order (A to Z)
+                Toast.makeText(this, "ASC clicked", Toast.LENGTH_SHORT).show();
+                mEasyListView.setOrderItems(OrderType.ASC);
+                break;
+            case R.id.order_DESC :
+                //Order the items with DESC order (Z to A)
+                Toast.makeText(this, "DESC clicked", Toast.LENGTH_SHORT).show();
+                mEasyListView.setOrderItems(OrderType.DESC);
+                break;
+            case R.id.list_type :
+                // change listview to LIST
+                mEasyListView.setListType(ViewType.LIST);
+                break;
+            case R.id.grid_type :
+                // change listview to GRID
+                mEasyListView.setListType(ViewType.GRID);
+                break;
+            case R.id.stagerred_type :
+                // change listview to STAGGERED_GRID
+                mEasyListView.setListType(ViewType.STAGGERED_GRID);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     // example of dummy datas
     public List<ListItem> getMockProducts(){
@@ -130,13 +161,43 @@ public class MainActivity extends AppCompatActivity {
         }
         return res;
     }
-
 }
 ```
 
-MIT License
-Copyright (c) 2017 Yudhistiro Agung N
+### Method references
+- Set/replace new dataset to listview
+```
+setListItems();
+```
+- Appends list with new dataset
+```
+addListItems();
+```
+- adds one item to existing dataset
+```
+addListItem()
+```
+- orders the items based on ASC or DESC order
+```
+setOrderItems();
+```
+- Change the List to different type programmatilcally
+```
+setListType();
+```
+- Adds item click listener
+```
+setOnItemClickListener()
+```
+- Sets scroll listener
+```
+setOnScrollEndListener()
+```
 
+
+MIT License
+
+Copyright (c) 2017 Yudhistiro Agung N
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights

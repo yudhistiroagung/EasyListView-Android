@@ -63,26 +63,35 @@ public class EasyListView extends FrameLayout {
     }
 
     private void initRecyclerView(){
-        switch (this.mType){
-            case GRID:
-                mLayoutManager = new GridLayoutManager(getContext(), 2);
-                mListView.addItemDecoration( new SpacesItemDecoration(16, 2) );
-                break;
-            case STAGGERED_GRID:
-                mLayoutManager = new StaggeredGridLayoutManager(2, VERTICAL);
-                mListView.addItemDecoration( new SpacesItemDecoration(16, 2) );
-                break;
-            default:
-                mLayoutManager = new LinearLayoutManager(getContext());
-        }
+        setLayoutManager(this.mType);
 
         if (mAdapter == null)
             mAdapter = new EasyListAdapter(this.mType, this.mListView);
 
-        mLayoutManager.setAutoMeasureEnabled(true);
-        mListView.setLayoutManager(mLayoutManager);
         mListView.setAdapter(mAdapter);
         mListView.addOnScrollListener(mScrollListener);
+    }
+
+    private RecyclerView.ItemDecoration mDecoration;
+    private void setLayoutManager(ViewType viewType){
+        if (mDecoration != null)
+            mListView.removeItemDecoration(mDecoration);
+        switch (viewType){
+            case GRID:
+                mDecoration = new SpacesItemDecoration(16, 2);
+                mLayoutManager = new GridLayoutManager(getContext(), 2);
+                mListView.addItemDecoration( mDecoration );
+                break;
+            case STAGGERED_GRID:
+                mDecoration = new SpacesItemDecoration(16, 2);
+                mLayoutManager = new StaggeredGridLayoutManager(2, VERTICAL);
+                mListView.addItemDecoration( mDecoration );
+                break;
+            default:
+                mLayoutManager = new LinearLayoutManager(getContext());
+        }
+        mLayoutManager.setAutoMeasureEnabled(true);
+        mListView.setLayoutManager(mLayoutManager);
     }
 
     private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
@@ -116,6 +125,15 @@ public class EasyListView extends FrameLayout {
     };
 
     /**
+     * set layout manager
+     * @param viewType list type, see {@link ViewType}
+     */
+    public void setListType(ViewType viewType){
+        this.setLayoutManager(viewType);
+        this.mAdapter.setViewType(viewType);
+    }
+
+    /**
      * replace list with new dataset
      * @param items
      */
@@ -124,16 +142,16 @@ public class EasyListView extends FrameLayout {
     }
 
     /**
-     * append list with new dataset
-     * @param items a list of object that implements {@link ListItem}
+     * appends list with new dataset
+     * @param items a list of object that implements, see {@link ListItem}
      */
     public void addListItems(List<? extends ListItem> items){
         mAdapter.addListItems(items);
     }
 
     /**
-     * add list with one new data
-     * @param item an object that implements {@link ListItem}
+     * adds one item to existing dataset
+     * @param item an object that implements, see {@link ListItem}
      */
     public void addListItem(ListItem item){
         mAdapter.addListItem(item);
@@ -142,15 +160,23 @@ public class EasyListView extends FrameLayout {
     /**
      * add list with one new data, to specific position
      * @param position : position of the object should be placed
-     * @param item an object that implements {@link ListItem}
+     * @param item an object that implements, see {@link ListItem}
      */
     public void addListItem(int position, ListItem item){
         mAdapter.addListItem(position, item);
     }
 
     /**
+     * set order item ascending or descending
+     * @param orderType see {@link OrderType}
+     */
+    public void setOrderItems(OrderType orderType){
+        mAdapter.setOrder(orderType);
+    }
+
+    /**
      * set click listener
-     * @param listener {@link OnItemClickListener}
+     * @param listener see {@link OnItemClickListener}
      */
     public void setOnItemClickListener(OnItemClickListener listener){
         mAdapter.setOnItemClickListener(listener);
